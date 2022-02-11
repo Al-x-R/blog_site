@@ -9,7 +9,7 @@ export const BlogWithTile = () => {
       <Box maxW={{ base: 'xl', md: '2xl', lg: '7xl' }} mx="auto" px={{ base: '6', md: '8' }}>
         <Box textAlign="center" maxW="md" mx="auto">
           <Heading size="2xl" fontWeight="extrabold" letterSpacing="tight">
-            From the blog
+            Blog
           </Heading>
           <Text mt="4" fontSize="lg" color={mode('gray.600', 'gray.400')}>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus
