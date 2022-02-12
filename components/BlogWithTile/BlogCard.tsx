@@ -26,7 +26,7 @@ interface BlogCardProps extends BoxProps {
 }
 
 export const BlogCard: FC<PostData> = ({data}: PostData) => {
-    const {author, title, excerpt, mainImage, publishedAt} = data;
+    const {author, title, excerpt, mainImage, publishedAt, slug} = data;
 
     const dateString = formatDate(publishedAt);
 
@@ -35,7 +35,7 @@ export const BlogCard: FC<PostData> = ({data}: PostData) => {
             <BlogMedia src={mainImage} alt={title}/>
             <Box mt="6">
                 {/*<BlogMeta tags={tags} type={type} />*/}
-                <Box mb="6">
+                <Box mb="6" as='a' href={`posts/${slug}`}>
                     <Box>
                         <Heading size="md" mt="6" mb="4">
                             {title}
@@ -45,7 +45,9 @@ export const BlogCard: FC<PostData> = ({data}: PostData) => {
                         {excerpt}
                     </Text>
                 </Box>
-                {author && <BlogAuthor name={author.name} image={author.image} role={author.title}/>}
+                <Box mt="4">
+                    {author && <BlogAuthor name={author.name} image={author.image} role={author.title}/>}
+                </Box>
                 <Box mt="4">
                     {`Published: ${dateString}`}
                 </Box>

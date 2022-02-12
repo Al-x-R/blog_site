@@ -5,7 +5,7 @@ import { Logo } from './Logo'
 import { SocialMediaLinks } from './SocialMediaLinks'
 
 export const SimpleFooter = () => (
-  <Box as="footer" role="contentinfo" mx="auto" maxW="7xl" py="12" px={{ base: '4', md: '8' }}>
+  <Box as="footer" role="contentinfo" mx="auto" maxW="7xl" py="12" px={{ base: '4', md: '8' }} >
     <Stack>
       <Stack direction="row" spacing="4" align="center" justify="center">
         <SocialMediaLinks />
