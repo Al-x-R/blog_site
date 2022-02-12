@@ -7,11 +7,12 @@ import { getAllPosts } from '../lib/api';
 
 
 const Home: NextPage = (posts) => {
-    console.log('posts', posts);
+    const data = posts.posts
+
     return (
         <>
             <PageLayout>
-                <BlogWithTile/>
+                <BlogWithTile data={data} />
             </PageLayout>
         </>
 
@@ -19,8 +20,8 @@ const Home: NextPage = (posts) => {
 };
 
 export async function getStaticProps() {
-    const data = await getAllPosts()
-    const posts = JSON.stringify(data)
+    const posts = await getAllPosts()
+    // const posts = JSON.stringify(data)
 
     return {
         props: {

@@ -1,48 +1,55 @@
-import { Box, BoxProps, Heading, Text, useColorModeValue as mode } from '@chakra-ui/react'
-import * as React from 'react'
-import { BlogAuthor } from './BlogAuthor'
-import { BlogMedia } from './BlogMedia'
-import { BlogMeta } from './BlogMeta'
+import { FC } from 'react';
+import { Box, BoxProps, Heading, Text, useColorModeValue as mode } from '@chakra-ui/react';
+
+import { BlogAuthor } from './BlogAuthor';
+import { BlogMedia } from './BlogMedia';
+// import { BlogMeta } from './BlogMeta';
+import { PostData } from './BlogWithTile';
+import { formatDate } from '../../utils/helpers';
 
 export interface BlogData {
-  type: 'article' | 'webinar' | 'video'
-  tags: string[]
-  title: string
-  description: string
-  image: string
-  href?: string
-  author?: {
-    name: string
-    image: string
-    title: string
-  }
+    type: 'article' | 'webinar' | 'video';
+    tags: string[];
+    title: string;
+    description: string;
+    image: string;
+    href?: string;
+    author?: {
+        name: string
+        image: string
+        title: string
+    };
 }
 
 interface BlogCardProps extends BoxProps {
-  data: BlogData
+    data: BlogData;
 }
 
-export const BlogCard = (props: BlogCardProps) => {
-  const { data, ...rest } = props
-  const { type, href = '#', author, title, tags, description, image } = data
+export const BlogCard: FC<PostData> = ({data}: PostData) => {
+    const {author, title, excerpt, mainImage, publishedAt} = data;
 
-  return (
-    <Box {...rest}>
-      <BlogMedia src={image} alt={title} />
-      <Box mt="6">
-        <BlogMeta tags={tags} type={type} />
-        <Box mb="6">
-          <Box as="a" href={href}>
-            <Heading size="md" mt="6" mb="4">
-              {title}
-            </Heading>
-          </Box>
-          <Text color={mode('gray.600', 'gray.400')} lineHeight="tall">
-            {description}
-          </Text>
+    const dateString = formatDate(publishedAt);
+
+    return (
+        <Box>
+            <BlogMedia src={mainImage} alt={title}/>
+            <Box mt="6">
+                {/*<BlogMeta tags={tags} type={type} />*/}
+                <Box mb="6">
+                    <Box>
+                        <Heading size="md" mt="6" mb="4">
+                            {title}
+                        </Heading>
+                    </Box>
+                    <Text color={mode('gray.600', 'gray.400')} lineHeight="tall">
+                        {excerpt}
+                    </Text>
+                </Box>
+                {author && <BlogAuthor name={author.name} image={author.image} role={author.title}/>}
+                <Box mt="4">
+                    {`Published: ${dateString}`}
+                </Box>
+            </Box>
         </Box>
-        {author && <BlogAuthor name={author.name} image={author.image} role={author.title} />}
-      </Box>
-    </Box>
-  )
-}
+    );
+};
