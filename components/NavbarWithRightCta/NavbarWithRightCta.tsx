@@ -26,7 +26,7 @@ export const NavbarWithRightCta = () => {
         <Box maxW="7xl" mx="auto" py="4" px={{ base: '6', md: '8' }}>
           <Flex as="nav" justify="space-between">
             <HStack spacing="8">
-              <Box as="a" href="#" rel="home">
+              <Box as="a" href="/" rel="home">
                 <VisuallyHidden>Blog app</VisuallyHidden>
                 <Logo h="6" iconColor="blue.500" />
               </Box>

@@ -2,11 +2,14 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { Box } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, useColorModeValue as mode } from '@chakra-ui/react';
 
 import PageLayout from '../../components/PageLayout';
 import { getAllPosts, getPostBySlug } from '../../lib/api';
 import { PostData } from '../../components/BlogWithTile/BlogWithTile';
+import { BlogAuthor } from '../../components/BlogWithTile/BlogAuthor';
+import { formatDate } from '../../utils/helpers';
+import { BlogMedia } from '../../components/BlogWithTile/BlogMedia';
 
 
 interface TypeProps extends Record<string, unknown> {
@@ -16,21 +19,32 @@ interface TypeProps extends Record<string, unknown> {
 
 const Post = ({post}) => {
     const router = useRouter();
-    console.log(post);
+    console.log('post', post);
+    const postDate = formatDate(post.publishedAt);
 
     if (router.isFallback) {
-    return (
-      <PageLayout>
-        Loading...
-      </PageLayout>
-    )
-  }
+        return (
+            <PageLayout>
+                Loading...
+            </PageLayout>
+        );
+    }
 
     return (
         <PageLayout>
-            <Box h="100%" w="100%" d="flex" alignItems="center" justifyContent="center">
-                hello
-            </Box>
+            <Container>
+                <BlogAuthor image={post.author.image} name={post.author.name}/>
+                <Heading size="2xl" fontWeight="extrabold" letterSpacing="tight">
+                    {post.title}
+                </Heading>
+                <Text mt="2" fontSize="lg" color={mode('gray.600', 'gray.400')}>
+                    {postDate}
+                </Text>
+                <BlogMedia src={post.mainImage} alt={post.title}/>
+                <Text>
+                    {post.body[0].children[0].text}
+                </Text>
+            </Container>
         </PageLayout>
     );
 };
